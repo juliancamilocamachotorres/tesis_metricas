@@ -13,5 +13,5 @@ pip install -r requirements.txt
 ## Ejecutar el archivo metrics.py
 
 ```bash
-python metrics.py "ruta_mascara_verdadera.png" "ruta_mascara_generada.png"
+python metricas.py "ruta_mascara_verdadera.png" "ruta_mascara_generada.png"
 ```

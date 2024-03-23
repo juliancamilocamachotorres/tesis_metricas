@@ -1,4 +1,24 @@
+<<<<<<< HEAD
 numpy==1.26.4
 opencv-python==4.9.0.80
 scikit-image==0.22.0
 pandas==2.2.1
+=======
+imageio         2.34.0
+lazy_loader     0.3
+networkx        3.2.1
+numpy           1.26.4
+opencv-python   4.9.0.80
+packaging       24.0
+pandas          2.2.1
+pillow          10.2.0
+pip             22.0.2
+python-dateutil 2.9.0.post0
+pytz            2024.1
+scikit-image    0.22.0
+scipy           1.12.0
+setuptools      59.6.0
+six             1.16.0
+tifffile        2024.2.12
+tzdata          2024.1
+>>>>>>> refs/remotes/origin/master
