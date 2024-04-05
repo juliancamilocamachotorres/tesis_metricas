@@ -64,7 +64,7 @@ def calculate_metrics(y_true, y_pred):
     else:
         MIOU = intersection / union
 
-    SSIM = metrics.structural_similarity(y_true, y_pred)
+    SSIM = metrics.structural_similarity(y_true/255>0.5, y_pred, data_range=1)
 
     precision = calculate_precision((y_true/255>0.5), (y_pred/255>0.5))
     recall = calculate_recall((y_true/255>0.5), (y_pred/255>0.5))
