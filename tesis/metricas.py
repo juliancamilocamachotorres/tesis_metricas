@@ -56,8 +56,8 @@ def calculate_metrics(y_true, y_pred):
     Returns:
       Una lista con el MIoU, SSIM, F1 y DICE.
     """
-    intersection = np.sum((y_true & y_pred) == 1)
-    union = np.sum((y_true | y_pred) == 1)
+    intersection = np.sum(((y_true/255>0.5) & (y_pred/255>0.5)) == 1)
+    union = np.sum(((y_true/255>0.5) | (y_pred/255>0.5)) == 1)
 
     if union == 0:
         MIOU = 0
@@ -66,16 +66,16 @@ def calculate_metrics(y_true, y_pred):
 
     SSIM = metrics.structural_similarity(y_true, y_pred)
 
-    precision = calculate_precision(y_true, y_pred)
-    recall = calculate_recall(y_true, y_pred)
+    precision = calculate_precision((y_true/255>0.5), (y_pred/255>0.5))
+    recall = calculate_recall((y_true/255>0.5), (y_pred/255>0.5))
 
     if precision + recall == 0:
         F1 = 0
     else:
         F1 = 2 * (precision * recall) / (precision + recall)
 
-    intersection = np.sum(y_true * y_pred)
-    union = np.sum(y_true) + np.sum(y_pred)
+    intersection = np.sum((y_true/255>0.5) * (y_pred/255>0.5))
+    union = np.sum((y_true/255>0.5)) + np.sum((y_pred/255>0.5))
 
     if union == 0:
         DICE = 0
@@ -98,9 +98,9 @@ def input():
     #seg = 1 - ((seg[:,:,0:1] == 0) + (seg[:,:,1:2] == 0) + (seg[:,:,2:3] == 254))
     #seg = (seg * 255).astype('uint8').repeat(3,axis=2)
 
-    metrics_0 = calculate_metrics(seg[:,:,0]/255>0.5, im[:,:,0]/255>0.5)
-    metrics_1 = calculate_metrics(seg[:,:,1]/255>0.5, im[:,:,1]/255>0.5)
-    metrics_2 = calculate_metrics(seg[:,:,2]/255>0.5, im[:,:,2]/255>0.5)
+    metrics_0 = calculate_metrics(seg[:,:,0], im[:,:,0])
+    metrics_1 = calculate_metrics(seg[:,:,1], im[:,:,1])
+    metrics_2 = calculate_metrics(seg[:,:,2], im[:,:,2])
     print('Métricas para el canal #0:')
     print('  - MIoU:', round(metrics_0[0], 4))
     print('  - SSIM:', round(metrics_0[1], 4))
